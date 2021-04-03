@@ -6,10 +6,10 @@ const promptUser = () => {
     return inquirer.prompt([
         {
             type: 'input',
-            name: 'name',
+            name: 'tlName',
             message: 'What is your team leaders name? (Required)',
-            validate: nameInput => {
-                if (nameInput) {
+            validate: tlNameInput => {
+                if (tlNameInput) {
                     return true;
                 } else {
                     console.log('Please enter a name!');
@@ -19,10 +19,10 @@ const promptUser = () => {
         },
         {
             type: 'input',
-            name: 'id',
+            name: 'tlId',
             message: 'Enter your team leaders employee identification number (Required)',
-            validate: idInput => {
-                if (idInput) {
+            validate: tlIdInput => {
+                if (tlIdInput) {
                     return true;
                 } else {
                     console.log('You need to enter an employee ID number!');
@@ -32,10 +32,10 @@ const promptUser = () => {
         },
         {
             type: 'input',
-            name: 'email',
+            name: 'tlEmail',
             message: 'Enter your team leaders email address (Required)',
-            validate: emailInput => {
-                if (emailInput) {
+            validate: tlEmailInput => {
+                if (tlEmailInput) {
                     return true;
                 } else {
                     console.log('You need to enter an email address!');
@@ -66,9 +66,9 @@ Add an Engineer
 =================
 `);
 
-    if (!profileData.profiles) {
-        profileData.profiles = [];
-    }
+    // if (!profileData.profiles) {
+    //     profileData.profiles = [];
+    // }
     return inquirer
         .prompt([
             {
@@ -124,14 +124,14 @@ Add an Engineer
                 }
             },
         ])
-        .then(engineerData => {
-            profileData.profiles.push(engineerData);
-            if (engineerData.confirmAddProject) {
-                return promptEngineer(profileData);
-            } else {
-                return profileData;
-            }
-        });
+//         .then(engineerData => {
+//             profileData.profiles.push(engineerData);
+//             if (engineerData.confirmAddProject) {
+//                 return promptEngineer(profileData);
+//             } else {
+//                 return profileData;
+//             }
+//         });
 };
 
 //PROMTP: Would you like to...
@@ -213,10 +213,18 @@ const promptIntern = profileData => {
         });
 };
 
+const employees = []
+
 promptUser()
-    .then(promptProfile)
-    .then(profileData => {
-        const pageHTML = generatePage(profileData);
+    // .then(promptProfile)
+    .then(async profileData => { 
+        console.log (profileData);
+        if (profileData.nextOption === 'Add an Engineer'){
+            let engineerResponses = await promptEngineer()
+            console.log (engineerResponses)
+        }
+        
+        // const pageHTML = generatePage(profileData);
 
         // fs.writeFile('./index.html', pageHTML, err => {
         //   if (err) throw new Error(err);
