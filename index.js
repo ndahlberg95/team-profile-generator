@@ -215,10 +215,20 @@ const promptIntern = profileData => {
 
 const employees = []
 
+const Employee = require('./lib/Employee');
+var empy = new Employee ('Nick', '12', 'email@email.com')
+console.log (empy.getRole())
+
+const Manager = require('./lib/Manager');
+const { connectableObservableDescriptor } = require('rxjs/internal/observable/ConnectableObservable');
+var ng = new Manager ('Nora', '13', 'email2@email,com', '103')
+console.log (ng.getRole())
+
 promptUser()
     // .then(promptProfile)
     .then(async profileData => { 
         console.log (profileData);
+        const edgy = new Manager (profileData.tlName, profileData.tlid, profileData.tlemail, '123')
         if (profileData.nextOption === 'Add an Engineer'){
             let engineerResponses = await promptEngineer()
             console.log (engineerResponses)
