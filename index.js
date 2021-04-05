@@ -67,7 +67,7 @@ Add a Manager
             message: 'Would you like to...',
             choices: [
                 "Add an Engineer",
-                "Add an Inter",
+                "Add an Intern",
                 "Finish"
             ],
             //if they choose "Add an Engineer" send them to promptEngineer
@@ -142,7 +142,7 @@ Add an Engineer
             message: 'Would you like to...',
             choices: [
                 "Add an Engineer",
-                "Add an Inter",
+                "Add an Intern",
                 "Finish"
             ],
             //if they choose "Add an Engineer" send them to promptEngineer
@@ -218,7 +218,7 @@ const promptIntern = profileData => {
                 message: 'Would you like to...',
                 choices: [
                     "Add an Engineer",
-                    "Add an Inter",
+                    "Add an Intern",
                     "Finish"
                 ],
                 //if they choose "Add an Engineer" send them to promptEngineer
@@ -231,25 +231,25 @@ const promptIntern = profileData => {
 const employees = []
 
 const Employee = require('./lib/Employee');
-var empy = new Employee('Nick', '12', 'email@email.com');
-console.log(empy.getRole());
+var newEmployee = new Employee('Nick', '123', 'nick@email.com');
+console.log(newEmployee.getRole());
 
 const Manager = require('./lib/Manager');
-var ng = new Manager($[managerNameInput], $[managerIdInput], $[managerEmailInput], $[officeNumberInput]);
-console.log(ng.getRole());
+var newManager = new Manager('Nora', '807', 'nora@email.com', '103');
+console.log(newManager.getRole());
 
 const Engineer = require('./lib/Engineer');
-var ng = new Engineer($[engineerNameInput], $[engineerIdInput], $[engineerEmailInput], $[githubInput]);
-console.log(ng.getRole());
+var newEngineer = new Engineer('Nancy', '234', 'nancy@email.com', 'nancy234');
+console.log(newEngineer.getRole());
 
 const Intern = require('./lib/Intern');
-var ng = new Intern($[internNameInput], $[internIdInput], $[internEmailInput], $[schoolInput]);
-console.log(ng.getRole());
+var newIntern = new Intern('Noah', '148', 'noah@email.com', 'Bates');
+console.log(newIntern.getRole());
 
 promptUser()
     .then(async profileData => {
         console.log(profileData);
-        const edgy = new Manager(profileData.managerName, profileData.managerId, profileData.managerEmail, profileData.managerOfficeNumber)
+        const newManager = new Manager(profileData.managerName, profileData.managerId, profileData.managerEmail, profileData.managerOfficeNumber)
         if (profileData.nextOption === 'Add an Engineer') {
             let engineerResponses = await promptEngineer()
             console.log(engineerResponses)
@@ -258,13 +258,13 @@ promptUser()
             let internResponses = await promptIntern()
             console.log(internResponses)
         }
-        // if (profileData.nextOption === 'Finish') {
-        //     // const pageHTML = generatePage(profileData);
+        if (profileData.nextOption === 'Finish') {
+            const pageHTML = generatePage(profileData);
 
-        //     // fs.writeFile('./index.html', pageHTML, err => {
-        //     //   if (err) throw new Error(err);
+            fs.writeFile('./dist/index.html', pageHTML, err => {
+              if (err) throw new Error(err);
 
-        //     //   console.log('Page created! Check out index.html in this directory to see it!');
-        //     // });
-        // }
+              console.log('Page created! Check out index.html in this directory to see it!');
+            });
+        }
     });
