@@ -18,4 +18,4 @@ module.exports = userInput => {
         </div>
 
     `;
-};
+}

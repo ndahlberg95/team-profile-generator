@@ -1,6 +1,12 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generatePage = require('./src/page-template');
+// const generatePage = require('./src/page-template');
+const openHTML = require('./src/openHTML');
+const closeHTML = require('./src/closeHTML');
+var dynamicHTML = "";
+const generateManager = require('./src/manager-template');
+const generateEngineer = require('./src/engineer-template');
+const generateIntern = require('./src/intern-template');
 
 const promptUser = () => {
     console.log(`
@@ -70,9 +76,6 @@ Add a Manager
                 "Add an Intern",
                 "Finish"
             ],
-            //if they choose "Add an Engineer" send them to promptEngineer
-            //if they choose "Add an Intern" send them to promptIntern
-            //if they choose "Finish" send them to generatePage
         }
     ])
 };
@@ -145,9 +148,6 @@ Add an Engineer
                 "Add an Intern",
                 "Finish"
             ],
-            //if they choose "Add an Engineer" send them to promptEngineer
-            //if they choose "Add an Intern" send them to promptIntern
-            //if they choose "Finish" send them to generatePage
         }
     ])
 };
@@ -221,47 +221,42 @@ const promptIntern = userInput => {
                     "Add an Intern",
                     "Finish"
                 ],
-                //if they choose "Add an Engineer" send them to promptEngineer
-                //if they choose "Add an Intern" send them to promptIntern
-                //if they choose "Finish" send them to generatePage
             }
         ])
 };
 
-const employees = []
 
-const Employee = require('./lib/Employee');
-var newEmployee = new Employee('Nick', '123', 'nick@email.com');
-console.log(newEmployee.getRole());
+//add openHTML to dynamicHTML
+//prompt user for manager input
+//add manager to dynamicHTML
+//prompt user for additional employees
+//add additional employees to dynamicHTML as necessary
+//add closeHTML to dynamicHTML
+//writeFile with dynamicHTML
 
-const Manager = require('./lib/Manager');
-var newManager = new Manager('Nora', '807', 'nora@email.com', '103');
-console.log(newManager.getRole());
+function concatString(Str1, Str2)
+{
+    return '' + Str1 + Str2;
+}
 
-const Engineer = require('./lib/Engineer');
-var newEngineer = new Engineer('Nancy', '234', 'nancy@email.com', 'nancy234');
-console.log(newEngineer.getRole());
-
-const Intern = require('./lib/Intern');
-var newIntern = new Intern('Noah', '148', 'noah@email.com', 'Bates');
-console.log(newIntern.getRole());
+dynamicHTML = concatString(openHTML, dynamicHTML)
 
 promptUser()
     .then(async userInput => {
         console.log(userInput);
-        const newManager = new Manager(userInput.managerName, userInput.managerId, userInput.managerEmail, userInput.managerOfficeNumber)
+        dynamicHTML = concatString(dynamicHTML, generateManager(userInput));
         if (userInput.nextOption === 'Add an Engineer') {
-            let engineerResponses = await promptEngineer()
-            console.log(engineerResponses)
+            let engineerResponses = await promptEngineer();
+            dynamicHTML = concatString(dynamicHTML, generateEngineer(engineerResponses));
         }
         if (userInput.nextOption === 'Add an Intern') {
-            let internResponses = await promptIntern()
-            console.log(internResponses)
+            let internResponses = await promptIntern();
+            dynamicHTML = concatString(dynamicHTML, generateIntern(internResponses));
         }
         if (userInput.nextOption === 'Finish') {
-            const pageHTML = generatePage(userInput);
+            dynamicHTML = concatString(dynamicHTML, closeHTML);
 
-            fs.writeFile('./dist/index.html', pageHTML, err => {
+            fs.writeFile('./dist/index.html', dynamicHTML, err => {
               if (err) throw new Error(err);
 
               console.log('Page created! Check out index.html in this directory to see it!');

@@ -32,6 +32,44 @@
     padding: 20px;
 }
 
+.engineer {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    box-shadow: 10px 10px 5px grey;
+    font-family: sans-serif;
+}
+
+.engineer-header {
+    background: #0377F7;
+    color: white;
+    padding: 10px;
+}
+
+.engineer-info {
+    background: #F6F7F9;
+    padding: 20px;
+}
+
+.intern {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    box-shadow: 10px 10px 5px grey;
+    font-family: sans-serif;
+}
+
+.intern-header {
+    background: #0377F7;
+    color: white;
+    padding: 10px;
+}
+
+.intern-info {
+    background: #F6F7F9;
+    padding: 20px;
+}
+
 h3 {
     background: white;
     color: darkgrey;
