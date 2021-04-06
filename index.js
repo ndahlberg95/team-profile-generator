@@ -77,7 +77,7 @@ Add a Manager
     ])
 };
 
-const promptEngineer = profileData => {
+const promptEngineer = userInput => {
     console.log(`
 =================
 Add an Engineer
@@ -152,7 +152,7 @@ Add an Engineer
     ])
 };
 
-const promptIntern = profileData => {
+const promptIntern = userInput => {
     console.log(`
   =================
   Add an Intern
@@ -247,19 +247,19 @@ var newIntern = new Intern('Noah', '148', 'noah@email.com', 'Bates');
 console.log(newIntern.getRole());
 
 promptUser()
-    .then(async profileData => {
-        console.log(profileData);
-        const newManager = new Manager(profileData.managerName, profileData.managerId, profileData.managerEmail, profileData.managerOfficeNumber)
-        if (profileData.nextOption === 'Add an Engineer') {
+    .then(async userInput => {
+        console.log(userInput);
+        const newManager = new Manager(userInput.managerName, userInput.managerId, userInput.managerEmail, userInput.managerOfficeNumber)
+        if (userInput.nextOption === 'Add an Engineer') {
             let engineerResponses = await promptEngineer()
             console.log(engineerResponses)
         }
-        if (profileData.nextOption === 'Add an Intern') {
+        if (userInput.nextOption === 'Add an Intern') {
             let internResponses = await promptIntern()
             console.log(internResponses)
         }
-        if (profileData.nextOption === 'Finish') {
-            const pageHTML = generatePage(profileData);
+        if (userInput.nextOption === 'Finish') {
+            const pageHTML = generatePage(userInput);
 
             fs.writeFile('./dist/index.html', pageHTML, err => {
               if (err) throw new Error(err);
