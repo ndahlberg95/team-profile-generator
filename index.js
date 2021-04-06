@@ -3,7 +3,7 @@ const fs = require('fs');
 // const generatePage = require('./src/page-template');
 const openHTML = require('./src/openHTML');
 const closeHTML = require('./src/closeHTML');
-var dynamicHTML = "";
+let dynamicHTML = "";
 const generateManager = require('./src/manager-template');
 const generateEngineer = require('./src/engineer-template');
 const generateIntern = require('./src/intern-template');
@@ -234,27 +234,23 @@ const promptIntern = userInput => {
 //add closeHTML to dynamicHTML
 //writeFile with dynamicHTML
 
-function concatString(Str1, Str2)
-{
-    return '' + Str1 + Str2;
-}
-
-dynamicHTML = concatString(openHTML, dynamicHTML)
+dynamicHTML = openHTML;
 
 promptUser()
     .then(async userInput => {
         console.log(userInput);
-        dynamicHTML = concatString(dynamicHTML, generateManager(userInput));
+        dynamicHTML = dynamicHTML + generateManager(userInput);
         if (userInput.nextOption === 'Add an Engineer') {
             let engineerResponses = await promptEngineer();
-            dynamicHTML = concatString(dynamicHTML, generateEngineer(engineerResponses));
+            dynamicHTML = dynamicHTML + generateEngineer(engineerResponses);
         }
         if (userInput.nextOption === 'Add an Intern') {
             let internResponses = await promptIntern();
-            dynamicHTML = concatString(dynamicHTML, generateIntern(internResponses));
+            dynamicHTML = dynamicHTML + generateIntern(internResponses);
         }
-        if (userInput.nextOption === 'Finish') {
-            dynamicHTML = concatString(dynamicHTML, closeHTML);
+        if (userInput.nextOption === 'Finish') { 
+            console.log (dynamicHTML);
+            dynamicHTML = dynamicHTML + closeHTML;
 
             fs.writeFile('./dist/index.html', dynamicHTML, err => {
               if (err) throw new Error(err);
