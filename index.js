@@ -67,16 +67,16 @@ Add a Manager
                 }
             }
         },
-        {
-            type: 'list',
-            name: 'nextOption',
-            message: 'Would you like to...',
-            choices: [
-                "Add an Engineer",
-                "Add an Intern",
-                "Finish"
-            ],
-        }
+        // {
+        //     type: 'list',
+        //     name: 'nextOption',
+        //     message: 'Would you like to...',
+        //     choices: [
+        //         "Add an Engineer",
+        //         "Add an Intern",
+        //         "Finish"
+        //     ],
+        // }
     ])
 };
 
@@ -139,16 +139,16 @@ Add an Engineer
                 }
             }
         },
-        {
-            type: 'list',
-            name: 'nextOption',
-            message: 'Would you like to...',
-            choices: [
-                "Add an Engineer",
-                "Add an Intern",
-                "Finish"
-            ],
-        }
+        // {
+        //     type: 'list',
+        //     name: 'nextOption',
+        //     message: 'Would you like to...',
+        //     choices: [
+        //         "Add an Engineer",
+        //         "Add an Intern",
+        //         "Finish"
+        //     ],
+        // }
     ])
 };
 
@@ -212,6 +212,22 @@ const promptIntern = userInput => {
                     }
                 }
             },
+            // {
+            //     type: 'list',
+            //     name: 'nextOption',
+            //     message: 'Would you like to...',
+            //     choices: [
+            //         "Add an Engineer",
+            //         "Add an Intern",
+            //         "Finish"
+            //     ],
+            // }
+        ])
+};
+
+const whatWouldYouLikeToDoNext = userInput => {
+    return inquirer
+        .prompt([
             {
                 type: 'list',
                 name: 'nextOption',
@@ -222,7 +238,7 @@ const promptIntern = userInput => {
                     "Finish"
                 ],
             }
-        ])
+        ]);
 };
 
 
@@ -236,26 +252,31 @@ const promptIntern = userInput => {
 
 dynamicHTML = openHTML;
 
+const doNext = async () => {
+    let next = await whatWouldYouLikeToDoNext();
+    if (next.nextOption === 'Add an Engineer') {
+        let engineerResponses = await promptEngineer();
+        dynamicHTML = dynamicHTML + generateEngineer(engineerResponses);
+        doNext();
+    }
+    if (next.nextOption === 'Add an Intern') {
+        let internResponses = await promptIntern();
+        dynamicHTML = dynamicHTML + generateIntern(internResponses);
+        doNext();
+    }
+    if (next.nextOption === 'Finish') { 
+        dynamicHTML = dynamicHTML + closeHTML;
+
+        fs.writeFile('./dist/index.html', dynamicHTML, err => {
+        if (err) throw new Error(err);
+
+        console.log('Page created! Check out index.html in this directory to see it!');
+        });
+    };
+};
+
 promptUser()
     .then(async userInput => {
-        console.log(userInput);
         dynamicHTML = dynamicHTML + generateManager(userInput);
-        if (userInput.nextOption === 'Add an Engineer') {
-            let engineerResponses = await promptEngineer();
-            dynamicHTML = dynamicHTML + generateEngineer(engineerResponses);
-        }
-        if (userInput.nextOption === 'Add an Intern') {
-            let internResponses = await promptIntern();
-            dynamicHTML = dynamicHTML + generateIntern(internResponses);
-        }
-        if (userInput.nextOption === 'Finish') { 
-            console.log (dynamicHTML);
-            dynamicHTML = dynamicHTML + closeHTML;
-
-            fs.writeFile('./dist/index.html', dynamicHTML, err => {
-              if (err) throw new Error(err);
-
-              console.log('Page created! Check out index.html in this directory to see it!');
-            });
-        }
+    doNext()
     });
