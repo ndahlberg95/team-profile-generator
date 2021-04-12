@@ -7,7 +7,7 @@ module.exports = userInput => {
 
                 <div class="engineer-header">
                     <h2>${userInput.engineerName}</h2>
-                    <h2>engineer</h2>
+                    <h2>Engineer</h2>
                 </div>
 
                 <div class="engineer-info">

@@ -211,7 +211,6 @@ const whatWouldYouLikeToDoNext = userInput => {
         ]);
 };
 
-
 //add openHTML to dynamicHTML
 //prompt user for manager input
 //add manager to dynamicHTML
