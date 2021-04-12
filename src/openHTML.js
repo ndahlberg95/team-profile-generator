@@ -16,5 +16,5 @@ module.exports =
       <h1>My Team</h1>
       </div>
             
-      <div class="employees">
+      <div class="container">
   `;
