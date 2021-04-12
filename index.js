@@ -67,16 +67,6 @@ Add a Manager
                 }
             }
         },
-        // {
-        //     type: 'list',
-        //     name: 'nextOption',
-        //     message: 'Would you like to...',
-        //     choices: [
-        //         "Add an Engineer",
-        //         "Add an Intern",
-        //         "Finish"
-        //     ],
-        // }
     ])
 };
 
@@ -139,16 +129,6 @@ Add an Engineer
                 }
             }
         },
-        // {
-        //     type: 'list',
-        //     name: 'nextOption',
-        //     message: 'Would you like to...',
-        //     choices: [
-        //         "Add an Engineer",
-        //         "Add an Intern",
-        //         "Finish"
-        //     ],
-        // }
     ])
 };
 
@@ -212,16 +192,6 @@ const promptIntern = userInput => {
                     }
                 }
             },
-            // {
-            //     type: 'list',
-            //     name: 'nextOption',
-            //     message: 'Would you like to...',
-            //     choices: [
-            //         "Add an Engineer",
-            //         "Add an Intern",
-            //         "Finish"
-            //     ],
-            // }
         ])
 };
 
