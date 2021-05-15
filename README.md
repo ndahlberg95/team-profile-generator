@@ -8,6 +8,6 @@
 
 ### After each additional employee, you will again be prompted to "Add an Enginner," "Add an Intern," or "Finsh."  These prompts will repeat until you select "Finish."  Once the employees have been added via Node, they will be displayed with their relevant information on the generated HTML.
 
-### Demo: https://drive.google.com/file/d/1vU_IO-sR2HR-KTUlGrXp7qqw_6JDOfQ-/view?usp=sharing
+### Demo: https://drive.google.com/file/d/173y9Y3tpf2K4Ch4fjuK6S1bIonUzDo_p/view
 
 ### GitHub: https://github.com/ndahlberg95/team-profile-generator
