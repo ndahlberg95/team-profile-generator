@@ -1,7 +1,7 @@
 const Manager = require('../lib/Manager.js');
 
 test('creates an manager object', () => {
-  const manager = new Manager('Dave');
+  const manager = new Manager('Dave', 123, 'dave@email.com', 123);
 
   expect(manager.name).toBe('Dave');
   expect(manager.id).toEqual(expect.any(Number));
@@ -11,7 +11,7 @@ test('creates an manager object', () => {
 });
 
 test('getRole function', () => {
-  const manager = new manager('Dave', 123, 'dave@email.com');
+  const manager = new Manager('Dave', 123, 'dave@email.com');
 
   expect(manager.getRole()).toBe('Manager');
 
